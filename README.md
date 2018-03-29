@@ -53,8 +53,8 @@ Options are:
 - `type` (string)
 - `subtypes` (array of strings, optional)
 - `protocol` (string, optional) - `udp` or `tcp` (default)
-- `txt` (object, optional) - a key/value object to broadcast as the TXT
-  record
+- `txt` (object, optional) - an array of key/value objects to broadcast
+  as the TXT record
 
 IANA maintains a [list of official service types and port
 numbers](http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml).

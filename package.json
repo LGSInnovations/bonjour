@@ -1,5 +1,5 @@
 {
-  "name": "bonjour",
+  "name": "@lgs-innovations/bonjour",
   "version": "3.5.0",
   "description": "A Bonjour/Zeroconf implementation in pure JavaScript",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "deep-equal": "^1.0.1",
     "dns-equal": "^1.0.0",
     "dns-txt": "^2.0.2",
-    "multicast-dns": "^6.0.1",
+    "@lgs-innovations/multicast-dns": "^7.0.0",
     "multicast-dns-service-types": "^1.1.0"
   },
   "devDependencies": {
