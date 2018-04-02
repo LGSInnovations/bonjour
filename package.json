@@ -1,6 +1,6 @@
 {
   "name": "@lgs-innovations/bonjour",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "A Bonjour/Zeroconf implementation in pure JavaScript",
   "main": "index.js",
   "dependencies": {
