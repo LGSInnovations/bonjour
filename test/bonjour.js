@@ -81,13 +81,13 @@ test('bonjour.find', function (bonjour, t) {
       if (s.name === 'Foo Bar') {
         t.equal(s.name, 'Foo Bar')
         t.equal(s.fqdn, 'Foo Bar._test._tcp.local')
-        t.deepEqual(s.txt, [{}])
-        t.deepEqual(s.rawTxt, [new Buffer('00', 'hex')])
+        t.deepEqual(s.txt, {})
+        t.deepEqual(s.rawTxt, new Buffer('00', 'hex'))
       } else {
         t.equal(s.name, 'Baz')
         t.equal(s.fqdn, 'Baz._test._tcp.local')
-        t.deepEqual(s.txt, [{ foo: 'bar' }])
-        t.deepEqual(s.rawTxt, [new Buffer('07666f6f3d626172', 'hex')])
+        t.deepEqual(s.txt, { foo: 'bar', spam: 'eggs' })
+        t.deepEqual(s.rawTxt, new Buffer('07666f6f3d626172097370616d3d65676773', 'hex'))
       }
       t.equal(s.host, os.hostname())
       t.equal(s.port, 3000)
@@ -113,7 +113,7 @@ test('bonjour.find', function (bonjour, t) {
 
   bonjour.publish({ name: 'Foo Bar', type: 'test', port: 3000 }).on('up', next())
   bonjour.publish({ name: 'Invalid', type: 'test2', port: 3000 }).on('up', next())
-  bonjour.publish({ name: 'Baz', type: 'test', port: 3000, txt: { foo: 'bar' } }).on('up', next())
+  bonjour.publish({ name: 'Baz', type: 'test', port: 3000, txt: { foo: 'bar', spam: 'eggs' } }).on('up', next())
 })
 
 test('bonjour.find - binary txt', function (bonjour, t) {
@@ -122,14 +122,14 @@ test('bonjour.find - binary txt', function (bonjour, t) {
 
     browser.on('up', function (s) {
       t.equal(s.name, 'Foo')
-      t.deepEqual(s.txt, [{ bar: new Buffer('buz') }])
-      t.deepEqual(s.rawTxt, [new Buffer('076261723d62757a', 'hex')])
+      t.deepEqual(s.txt, { bar: new Buffer('buz'), spam: new Buffer('eggs') })
+      t.deepEqual(s.rawTxt, new Buffer('076261723d62757a097370616d3d65676773', 'hex'))
       bonjour.destroy()
       t.end()
     })
   })
 
-  bonjour.publish({ name: 'Foo', type: 'test', port: 3000, txt: { bar: new Buffer('buz') } }).on('up', next())
+  bonjour.publish({ name: 'Foo', type: 'test', port: 3000, txt: { bar: new Buffer('buz'), spam: new Buffer('eggs') } }).on('up', next())
 })
 
 test('bonjour.find - down event', function (bonjour, t) {

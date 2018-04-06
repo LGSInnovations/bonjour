@@ -47,7 +47,7 @@ test('minimal', function (t) {
   t.equal(s.host, os.hostname())
   t.equal(s.port, 3000)
   t.equal(s.fqdn, 'Foo Bar._http._tcp.local')
-  t.equal(s.txt, null)
+  t.deepEqual(s.txt, [])
   t.equal(s.subtypes, null)
   t.equal(s.published, false)
   t.end()
@@ -76,7 +76,7 @@ test('_records() - minimal', function (t) {
   t.deepEqual(s._records(), [
     { data: s.fqdn, name: '_http._tcp.local', ttl: 28800, type: 'PTR' },
     { data: { port: 3000, target: os.hostname() }, name: s.fqdn, ttl: 120, type: 'SRV' },
-    { data: new Buffer('00', 'hex'), name: s.fqdn, ttl: 4500, type: 'TXT' }
+    { data: [], name: s.fqdn, ttl: 4500, type: 'TXT' }
   ].concat(getAddressesRecords(s.host)))
   t.end()
 })
@@ -86,7 +86,7 @@ test('_records() - everything', function (t) {
   t.deepEqual(s._records(), [
     { data: s.fqdn, name: '_http._tcp.local', ttl: 28800, type: 'PTR' },
     { data: { port: 3000, target: 'example.com' }, name: s.fqdn, ttl: 120, type: 'SRV' },
-    { data: new Buffer('07666f6f3d626172', 'hex'), name: s.fqdn, ttl: 4500, type: 'TXT' }
+    { data: [new Buffer('666f6f3d626172', 'hex')], name: s.fqdn, ttl: 4500, type: 'TXT' }
   ].concat(getAddressesRecords(s.host)))
   t.end()
 })
